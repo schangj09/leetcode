@@ -30,8 +30,9 @@ public class Solution {
         }
     };
 
-    static boolean LEFT = true;
-    static boolean RIGHT = false;
+    // keep track of smallest and largest node in the tree during the dfs traversal
+    static Node smallest = null;
+    static Node largest = null;
 
     public Node treeToDoublyList(Node root) {
         if (root == null) {
@@ -43,78 +44,30 @@ public class Solution {
         // the next largest is the parent, next is the leftmost node of right subtree or
         // the next parent
 
-        // in order traversal, and swap pointers as we go
-        Deque<Node> parents = new LinkedList<Node>();
-        parents.offerFirst(root);
-        Node smallest = dfs(LEFT, parents, root.left);
-        if (smallest == root && root.right == null) {
-            return smallest;
-        } else if (smallest == null) {
-            smallest = root;
-        } else {
-            Node end = rightmost(smallest);
-            if (end.val < root.val) {
-                end.right = root;
-                root.left = end;
-            }
-        }
-        Node next = dfs(RIGHT, parents, root.right);
-        root.right = next;
-        if (next != null) {
-            next.left = root;
-        }
-        Node largest = rightmost(root);
-        largest.right = smallest;
+        dfs(root);
+
+        // link the smallest and largest together for the cycle
         smallest.left = largest;
+        largest.right = smallest;
         return smallest;
     }
 
-    Node rightmost(Node node) {
-        if (node.right == null) {
-            return node;
+    void dfs(Node node) {
+        // in order traversal, and link the nodes as we go
+        if (node.left != null) {
+            dfs(node.left);
+        }
+        if (largest != null) {
+            largest.right = node;
+            node.left = largest;
         } else {
-            return rightmost(node.right);
+            smallest = node;
         }
-    }
-
-    Node dfs(boolean isLeft, Deque<Node> parents, Node node) {
-        // we return the smallest node in the subtree, after making the subtree into a
-        // double-linked list
-        if (node == null) {
-            return null;
+        largest = node;
+        
+        if (node.right != null) {
+            dfs(node.right);
         }
-        Node parent = parents.peekFirst();
-        // leaf node, update the parent
-        if (node.left == null && node.right == null) {
-            // if left, then set node.right to the parent (parent.left already points to
-            // this node)
-            if (isLeft) {
-                node.right = parent;
-            }
-            // for right leaf node, set the node.left
-            else {
-                node.left = parent;
-            }
-            return node;
-        }
-
-        parents.offerFirst(node);
-        Node leftSmallest = dfs(LEFT, parents, node.left);
-        Node rightSmallest = dfs(RIGHT, parents, node.right);
-        parents.pollFirst();
-
-        // for non-null left, the return the smallest
-        if (leftSmallest != null) {
-            return leftSmallest;
-        }
-        // for null left, this node is the smallest, so return node after updating the
-        // right pointer
-        // to the smallest node in the right subtree
-        if (rightSmallest != null) {
-            node.right = rightSmallest;
-            rightSmallest.left = node;
-        }
-        return node;
     }
 
     public static void main(String[] args) {
