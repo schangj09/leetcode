@@ -7,7 +7,7 @@ public class SolutionMutiple {
         return 1;
     }
 
-    // index into the write buffer from the last call to read
+    // buffer from the last call to read4 and indexes of what is remaining to copy from it
     char[] b4 = new char[4];
     int b4Start = 0;
     int b4Count = 0;
