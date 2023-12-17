@@ -12,29 +12,33 @@ public class Solution {
         if (n == 0) {
             return 0;
         }
-        // sort the meetings first. To find the min number of conference rooms, we need to 
-        // count the maximum number of overlapping intervals.
+
+        // both solutions depend on sorting the by time
+        
+        // 2 different ideas - one is the use a min-heap that contains all the occupied rooms, ordered by the end time
+        // when a new meeting starts after the earliest end time, we can pop the heap and replace it with the new 
+        // meetings end time. At the end the size of the heap is the max occupied rooms.
+        //
+        // don't forget to clarify if the end and start are equal, then does that count as overlap? (by leetcode yes)
+
+        // other idea is to separate start and end times into separate arrays, sort each individually
+        // Walk through the 2 arrays keepign track of how many meetings are overlapping.
+
+        // option 1:
         Arrays.sort(intervals, (a, b) -> {return a[0] < b[0] ? -1 : (a[0] == b[0] ? 0 : 1);});
 
-        // keep a sliding window for the intervals that are currently overlapping with right indices not-inclusive
-        // if the intervval
-        int left = 0;
-        int right = 1;
-        int maxOverlap = 1;
-        while (right < n) {
-            System.out.println(Arrays.toString(intervals[left]));
-            right++;
-            // find the first meeting whose start time is after the left meeting end time
-            while (right < n && intervals[right][0] <= intervals[left][1]) {
-                right++;
+        PriorityQueue<Integer> occupiedRoomEndTime = new PriorityQueue<>((a, b) -> a - b);
+        occupiedRoomEndTime.offer(intervals[0][1]);
+        for (int i = 1; i < n; i++) {
+            // if the next meeting starts after the earliest end time in the queue, then we can pop that from queue
+            if (intervals[i][0] >= occupiedRoomEndTime.peek()) {
+                occupiedRoomEndTime.poll();
             }
-            int overlap = right - left;
-            maxOverlap = Math.max(maxOverlap, overlap);
-            // increment left meeting to find a next overlap group
-            left++;
+            // always add this meeting end time to the queue
+            occupiedRoomEndTime.offer(intervals[i][1]);
         }
 
-        return maxOverlap;
+        return occupiedRoomEndTime.size();
     }
 
     public static void main(String[] args) {
