@@ -35,7 +35,7 @@ public class Solution {
         i=2;
         dict90.put(i++, "twenty");
         dict90.put(i++, "thirty");
-        dict90.put(i++, "fourty");
+        dict90.put(i++, "forty");
         dict90.put(i++, "fifty");
         dict90.put(i++, "sixty");
         dict90.put(i++, "seventy");
@@ -56,7 +56,7 @@ public class Solution {
     public void numberToWords(int num, StringBuffer sb) {
         // sepcial case 0
         if (num == 0) {
-            sb.append("zero");
+            sb.append(dict10.get(num));
             return;
         }
 
@@ -100,13 +100,13 @@ public class Solution {
 
     public static void main(String[] args) {
 
-        // System.out.println(new Solution().numberToWords(10));
-        // System.out.println(new Solution().numberToWords(11));
-        // System.out.println(new Solution().numberToWords(19));
-        // System.out.println(new Solution().numberToWords(20));
-        // System.out.println(new Solution().numberToWords(59));
-        // System.out.println(new Solution().numberToWords(601));
-        // System.out.println(new Solution().numberToWords(7999));
+        System.out.println(new Solution().numberToWords(10));
+        System.out.println(new Solution().numberToWords(11));
+        System.out.println(new Solution().numberToWords(19));
+        System.out.println(new Solution().numberToWords(20));
+        System.out.println(new Solution().numberToWords(59));
+        System.out.println(new Solution().numberToWords(601));
+        System.out.println(new Solution().numberToWords(7999));
         System.out.println(new Solution().numberToWords(2111799912));
     }
 }
