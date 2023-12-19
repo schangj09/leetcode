@@ -26,6 +26,8 @@ class Trie {
             }
 
             insert(node.next[idx], w.substring(1));
+        } else {
+            node.count++;
         }
     }
 
@@ -33,8 +35,11 @@ class Trie {
         return search(root, word);
     }
     private boolean search(Node node, String w) {
-        if (w.length() == 0 || node.next[w.charAt(0)-'a'] == null) {
+        if (node == null) {
             return false;
+        }
+        if (w.length() == 0) {
+            return node.count > 0;
         }
         return search(node.next[w.charAt(0)-'a'], w.substring(1));
     }
@@ -53,5 +58,6 @@ class Trie {
 
     static class Node {
         Node[] next = new Node[26];
+        int count = 0;
     }
 }
