@@ -8,39 +8,51 @@ public class Solution {
         int m = p.length();
         int ip = 0;
         int is = 0;
-        char prev = 0;
         while (is < n && ip < m) {
-            char cp = p.charAt(ip);
-            char cs = s.charAt(is);
-            if (cp == '.' || cp != '*') {
-                is++;
-                prev = cp;
-            } else {
-                if (prev == '.') {
+            char cs = s.charAt(is++);
+            char cp = p.charAt(ip++);
+            if (cp == '*') {
+                // bad expression
+                return false;
+            }
+            char lookahead = (ip < m) ? p.charAt(ip) : 0;
+            // check for wildacard match ".*" or "a*"
+            if (lookahead == '*') {
+                // increment ip for the lookahead char
+                ip++;
+                // if wildcard match, then go to end of string
+                // otherwise forward until cs is not equal to prev, then back up 
+                if (cp == '.') {
                     is = n;
                 } else {
-                    // if cs matches prev, so need to advance is at least 1
-                    while (is < n && s.charAt(is) == prev) {
-                        is++;
+                    char wildcardmatch = cp; // the character from the pattern we are looking for
+                    while (wildcardmatch == cs && is < n) {
+                        cs = s.charAt(is++);
                     }
-                    // if at the end, we matched all characters, but otherwise, we need to back up one
-                    if (is < n) {
+                    // if cs doesn't match, then we went past it so back up one
+                    if (wildcardmatch != cs) {
                         is--;
                     }
                 }
+            } else {
+                // case: no wildcard 
+                // no match if characters don't match
+                if (cp != '.' && cp != cs) {
+                    return false;
+                }
             }
-            ip++;
         }
         return is == n && ip == m;
     }
 
     public static void main(String[] args) {
         String[][] s = new String[][] {
-            {"aa", "a"},
-            {"aa", "a*"},
-            {"ab", ".*"},
-            {"auuiabx", ".*ab."},
-            {"mississippi", "mis*is*p*."}
+            // {"aa", "a"},
+            //{"aa", "a*"}
+            // {"ab", ".*"},
+            // {"auuiabx", ".*ab."},
+            // {"mississippi", "mis*is*p*."},
+            {"aab", "c*a*b"}
         };
 
         for (int i = 0; i < s.length; i++) {
