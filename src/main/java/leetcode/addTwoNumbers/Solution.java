@@ -29,8 +29,8 @@ class Solution {
         ListNode result = null;
         ListNode end = null;
         int carry = 0;
-        while (l1 != null || l2 != null) {
-            int v = 0;
+        while (l1 != null || l2 != null || carry != 0) {
+            int v = carry;
             if (l1 != null) {
                 v += l1.val;
                 l1 = l1.next;
@@ -39,6 +39,7 @@ class Solution {
                 v += l2.val;
                 l2 = l2.next;
             }
+
             carry = v/10;
             ListNode d = new ListNode(v%10);
             if (end == null) {
@@ -49,5 +50,6 @@ class Solution {
                 end = d;
             }
         }
+        return result;
     }
 }
