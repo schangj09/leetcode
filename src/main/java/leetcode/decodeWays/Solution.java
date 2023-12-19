@@ -37,31 +37,24 @@ public class Solution {
         if (a[i] != 0) {
             return a[i];
         }
-        if (decodeFailed) {
+
+        int v = getVal(s.charAt(i));
+        // if it starts with a zero, then none
+        if (v == 0) {
+            a[i] = 0;
             return 0;
         }
-        int v = getVal(s.charAt(i));
-        if (i == 0 && v == 0) {
-            return 0;
-        } else if (i == n - 1) {
-            a[i] = (v == 0 ? 0 : 1);
-        } else {
-            int v1 = getVal(s.charAt(i + 1));
 
-            if (v == 0 || v > 2 || v1 > 7) {
-                // special case 0 where it can't be decoded
-                if ((v == 0 || v > 2) && v1 == 0) {
-                    // set a marker
-                    decodeFailed = true;
-                    a[i] = 0;
-                } else {
-                    // only 1 way to decode this char, so the total count is the same as a[i+1]
-                    a[i] = count(s, i + 1, a);
-                }
-            } else {
-                // only 1 extra way of decoding
-                a[i] = 1 + count(s, i + 1, a);
-            }
+        // if it is only one digit, then 1
+        if (v == n-1) {
+            return 1;
+        }
+
+        // otherwise, ans is compute for i+1 and i+2 (depending if we can decode 2 ways)
+        int v1 = getVal(s.charAt(i + 1));
+        a[i] = count(s, i + 1, a);
+        if (v*10 + v1 <= 26) {
+            a[i] += count(s, i + 2, a);
         }
         return a[i];
     }
