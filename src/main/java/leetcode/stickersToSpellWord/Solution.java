@@ -1,5 +1,7 @@
 package leetcode.stickersToSpellWord;
 
+import java.util.*;
+
 /*
 We are given n different types of stickers. Each sticker has a lowercase English word on it.
 
@@ -11,93 +13,143 @@ Note: In all test cases, all words were chosen randomly from the 1000 most commo
 
  */
 public class Solution {
-    int minCount = Integer.MAX_VALUE;
+    Map<Word, Integer> memo = new HashMap<>();
+    int hit = 0;
+    int call = 0;
+
     public int minStickers(String[] stickers, String target) {
-        // the idea is to use backtracking to find each possible solution and 
+        // the idea is to use backtracking to find each possible solution and
         // track the solution with the min number of stickers
         //
-        // for each iteration, we find the possible stickers that will get us closer to finishing,
-        // for each one of those, we try them out one at a time and backtrack after each one
+        // for each iteration, we find the possible stickers that will get us closer to
+        // finishing,
+        // for each one of those, we try them out one at a time and backtrack after each
+        // one
+
+        // add memoization - map of target Word to minStickers
 
         // represent words as frequency count
-        backtrack(newFreqCounts(stickers), new FreqCount(target), 0);
+        int minCount = backtrack(newFreqCounts(stickers), new Word(target), 0);
+        System.out.println(String.format("cache hit: %d, miss: %d", hit, call - hit));
         return minCount == Integer.MAX_VALUE ? -1 : minCount;
     }
-    void backtrack(FreqCount[] stickers, FreqCount target, int count) {
+
+    int backtrack(Word[] stickers, Word target, int count) {
         if (target.isEmpty()) {
-            minCount = Math.min(minCount, count);
-            return;
+            return count;
         }
-        // get possible stickers that match
+        call++;
+        if (memo.containsKey(target)) {
+            hit++;
+            return memo.get(target);
+        }
+         // get possible stickers that match
         boolean[] m = new boolean[stickers.length];
         for (int j = 0; j < stickers.length; j++) {
             m[j] = target.match(stickers[j]);
         }
 
-        // for each sticker with matching characters in the remaining target, do a backtrack
+        // for each sticker with matching characters in the remaining target, do a
+        // backtrack
+        int minCount = Integer.MAX_VALUE;
         for (int i = 0; i < m.length; i++) {
             if (m[i]) {
-                FreqCount subtracted = target.subtract(stickers[i]);
-                backtrack(stickers, target, count + 1);
-                target.add(subtracted);
+                Word subtarget = target.minus(stickers[i]);
+                int subcount = backtrack(stickers, subtarget, count + 1);
+                minCount = Math.min(minCount, subcount);
             }
         }
+        memo.put(target, minCount);
+        return minCount;
     }
 
-    FreqCount[] newFreqCounts(String[] s) {
-        FreqCount[] a = new FreqCount[s.length];
+    Word[] newFreqCounts(String[] s) {
+        Word[] a = new Word[s.length];
         for (int i = 0; i < s.length; i++) {
-            a[i] = new FreqCount(s[i]);
+            a[i] = new Word(s[i]);
         }
         return a;
     }
-    
-    static class FreqCount {
+
+    static class Word {
+        final String s;
         int[] freq = new int[26];
-        FreqCount() {
-        }
-        FreqCount(String s) {
+
+        Word(String s) {
             for (int i = 0; i < s.length(); i++) {
                 freq[s.charAt(i) - 'a'] += 1;
             }
-        }
-        boolean isEmpty() {
-            for (int i = 0; i < 26; i++) {
-                if (freq[i] != 0) {
-                    return false;
-                }
-            }
-            return true;
+            this.s = toNormalString(freq);
         }
 
-        // subtract other frequency counts from this and return the subtracted counts
-        FreqCount subtract(FreqCount other) {
-            FreqCount f = new FreqCount();
+        boolean isEmpty() {
+            return s.isEmpty();
+        }
+
+        // subtract other frequency counts from this and return the resulting Word
+        Word minus(Word other) {
+            int[] f = new int[26];
             for (int i = 0; i < 26; i++) {
                 if (freq[i] > 0 && other.freq[i] > 0) {
                     int count = Math.min(freq[i], other.freq[i]);
-                    freq[i] -= count;
-                    f.freq[i] = count;
+                    f[i] = freq[i] - count;
+                } else {
+                    f[i] = freq[i];
                 }
             }
-            return f;
+            return new Word(toNormalString(f));
         }
-        // add other frequency counts to this
-        void add(FreqCount other) {
+
+        static String toNormalString(int[] f) {
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 26; i++) {
-                if (other.freq[i] > 0) {
-                    freq[i] += other.freq[i];
+                for (int j = 0; j < f[i]; j++) {
+                    sb.appendCodePoint('a' + i);
                 }
             }
+            return sb.toString();
         }
+
         // check if any of the other frequency counts overlap to this
-        boolean match(FreqCount other) {
+        boolean match(Word other) {
             for (int i = 0; i < 26; i++) {
                 if (freq[i] > 0 && other.freq[i] > 0) {
                     return true;
                 }
             }
             return false;
+        }
+
+        public String toString() {
+            return s;
+        }
+
+        @Override
+        public int hashCode() {
+            return s.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            return s.equals(((Word)other).s);
+        }
+    }
+
+    public static void main(String[] args) {
+        String[][] s = new String[][] {
+                { "with", "example", "science" },
+                { "notice", "possible" },
+                { "write","their","read","quiet","against","down","process","check"}
+
+        };
+        String[] t = new String[] {
+                "thethat",
+                "basicbasic",
+                "togetherhand"
+        };
+
+        for (int i = 0; i < s.length; i++) {
+            System.out.println(new Solution().minStickers(s[i], t[i]));
         }
     }
 }
