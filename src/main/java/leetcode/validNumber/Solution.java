@@ -91,7 +91,7 @@ public class Solution {
     int parseInteger(char[] c, int i) {
         int j = parseSign(c, i); // always optional
         int k = parseDigits(c, j); // required
-        return k > j ? k : 0;
+        return k > j ? k : i;
     }
 
     int parseSign(char[] c, int i) {
