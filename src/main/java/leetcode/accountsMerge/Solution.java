@@ -12,56 +12,59 @@ After merging the accounts, return the accounts in the following format: the fir
 
  */
 class Solution {
-    Map<Integer, String> accountNames = new HashMap<>();
-    Map<Integer, Set<String>> accountsMap = new HashMap<>();
-    Map<String, Integer> emails = new HashMap<>();
-    int nextId = 1;
 
+    // idea is to make a graph and traverse connected accounts and merge
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        // ida is to make a map of email to account so that we can check each email from the input to see 
-        // if it is already seen. If so, then add all the emails to the existing account, else
-        // create a new account and add all to that
-        //
-        // 4 accts, with one overlap in each account, so transitively 1 and 4 are linked, but there is no overlap
-        // probably need a graph search
-
-
-        for (List<String> a : accounts) {
-            int id = findOrCreateAccount(a);
-            addEmailsToAccount(id, a);
-        }
-        // convert the maps to a list
-        List<List<String>> res = new ArrayList<>();
-        for (int acctId : accountNames.keySet()) {
-            List<String> acct = new ArrayList<>(accountsMap.get(acctId));
-            acct.sort(Comparator.naturalOrder());
-            acct.add(0, accountNames.get(acctId));
-            res.add(acct);
-        }
-        return res;
-    }
-
-    int findOrCreateAccount(List<String> account) {
-        String name = account.get(0);
-        if (emails.size() > 0) {
-            for (int i = 1; i < account.size(); i++) {
-                String email = account.get(i);
-                if (emails.containsKey(email)) {
-                    return emails.get(email);
+        int n = accounts.size();
+        
+        // build the graph as a 2d array - 2 account ids are linked if there is an overlapping email
+        Map<String, List<Integer>> emailsMap = new HashMap<>();
+        boolean[][] graph = new boolean[n][n];
+        for (int a = 0; a < n; a++) {
+            List<String> acct = accounts.get(a);
+            for (int i = 1; i < acct.size(); i++) {
+                String email = acct.get(i);
+                List<Integer> ids = emailsMap.computeIfAbsent(email, (x) -> new ArrayList<>());
+                ids.add(a);
+                // add bidirectional graph edge for any overlapping accounts found
+                for (int b : ids) {
+                    graph[a][b] = true;
+                    graph[b][a] = true;
                 }
             }
         }
-        int id = nextId++;
-        accountsMap.put(id, new HashSet<>());
-        accountNames.put(id, name);
-        return id;
+
+        // traverse all account ids until all are visited
+        List<List<String>> result = new ArrayList<>();
+        boolean[] visited = new boolean[n];
+        for (int a = 0; a < n; a++) {
+            if (!visited[a]) {
+                Set<String> emails = new HashSet<>();
+                traverse(a, graph, visited, accounts, emails);
+                List<String> acct = new ArrayList<>(emails);
+                acct.sort(Comparator.naturalOrder());
+
+                String accountName = accounts.get(a).get(0);
+                acct.add(0, accountName);
+                result.add(acct);
+            }
+        }
+        return result;
     }
 
-    void addEmailsToAccount(int id, List<String> account) {
-        for (int i = 1; i < account.size(); i++) {
-            String email = account.get(i);
-            emails.put(email, id);
-            accountsMap.get(id).add(email);
+    void traverse(int a, boolean[][] graph, boolean[] visited, List<List<String>> accounts, Set<String> emails) {
+        if (!visited[a]) {
+            visited[a] = true;
+            // add emails from account a and recurse on connected accounts
+            for (int j = 1; j < accounts.get(a).size(); j++) {
+                emails.add(accounts.get(a).get(j));
+            }
+            for (int b = 0; b < accounts.size(); b++) {
+                // recurse on any connected account
+                if (!visited[b] && graph[a][b]) {
+                    traverse(b, graph, visited, accounts, emails);
+                }
+            }
         }
     }
 }
