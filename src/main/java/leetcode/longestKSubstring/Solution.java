@@ -8,6 +8,13 @@ if no such substring exists, return 0.
 
 public class Solution {
     public int longestSubstring(String s, int k) {
+
+        // 2 other approaches from editorial:
+        // a) divide and conquer, by splitting at a character whose count is less than k, then 
+        // find on left and right sides - faster in general case, but still O(n^2) worst case
+        // b) sliding window using the "max number of unique characters" from 1 to total unique characters in the string
+        // each iteration of sliding window takes N iterations, up to 26 times over the string to get the max substring
+
         // brute force - get freq count of each substring, check if the min freq count
         // is greater than or equal to k
         //
