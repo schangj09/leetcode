@@ -1,5 +1,4 @@
 package leetcode.lowestCommonAncestor;
-import java.util.*;
 
 public class Solution3 {
 
@@ -46,6 +45,6 @@ public class Solution3 {
             c++;
             p = p.parent;
         }
-        return c
+        return c;
     }
 }
