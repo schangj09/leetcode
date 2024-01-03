@@ -23,50 +23,78 @@ public class Solution {
         // ex: 3+2*-5 -> operator '*' is higher precedence than '+', so push operand and sign
         // ex: 3*7/2-5
 
-        // get a number p1, get a operator prevOp, get a number p2, get a operator (calc the prev expression or push to stack)
+        // a valid expression must always alternate between a number and operator
+        // concept is to keep track of previous operator, then get the next number and the lookeahead operator
+        // (always convert subtraction to a negative number)
+
+        // a + b*c
+        // if prevOp = +, if lookahead is same precedence, then add numbers, else push operand
+        // if prevOp = */, then always mult or divide, afterwards if lookahead is same precedence continue, else pop stack and add
 
         Stack<Integer> stack = new Stack<>();
-        // previous operator
-        char prevOp = '#';
-
-        int sign = 1;
-        int p1 = 0;
-        int p2 = 0;
+        Stack<Character> opStack = new Stack<>();
         int n = s.length();
-        for (int i = 0; i < n; i++) {
+        int i = 0;
+        int operand = 0;
+        Character prevOp = null;
+        while (i < n) {
             char c = s.charAt(i++);
-            if (Character.isDigit(c)) {
-                if (prevOp == '#') {
-                    p1 = p1*10 + (c - '0');
+            // skip spaces
+            while (i < n && c == ' ') {
+                c = s.charAt(i++);
+            }
+            // parse the digit (handle possible leading negative sign)
+            int sign = 1;
+            if (c == '-') {
+                sign = -1;
+                c = s.charAt(i++);
+            }
+            int next = 0;
+            while (Character.isDigit(c)) {
+                next = next*10 + (c - '0');
+                c = i < n ? s.charAt(i++) : '+';
+            }
+            next *= sign;
+
+            // skip spaces after the number and before the next operator
+            while (i < n && s.charAt(i) == ' ') {
+                c = i < n ? s.charAt(i++) : '+';
+            }
+
+            if (prevOp == null) {
+                operand = next;
+            } else {
+                // if prevOp is mult/divide, then apply it
+                if (prevOp == '*' || prevOp == '/') {
+                    if (prevOp == '*') {
+                        operand = operand * next;
+                    } else {
+                        operand = operand / next;
+                    }
+                    // in case lookahead is lower precedence, we must pop the stack and add that value to the current operand
+                    if (!stack.isEmpty() && (c == '+' || c == '-')) {
+                        prevOp = opStack.pop();
+                        operand = stack.pop() + (prevOp == '-' ? -1 : 1) * operand;
+                    }
                 } else {
-                    p2 = p2*10 + (c - '0');
-                }
-            } else if (c == '+' || c == '-') {
-                // either calc prev expression or push p1 and operator to the stack
-                if (prevOp == '+') {
-                    p1 = p1 + sign * p2;
-                    p2 = 0;
-                } else {
-                    // if prevOp was higher precedence, then we must pop the stack and apply the operation from the stack
-                    if ((prevOp == '*' || prevOp == '/') && stack.size() > 0) {
-                        int stackSign = stack.pop();
-                        int stackOperand = stack.pop();
-                        p1 = stackOperand + stackSign * p1;
-                        p2 = 0;
+                    // if lookeahead is higher precedence than prevOp, then push operand to the stack
+                    if (c == '*' || c == '/') {
+                        stack.push(operand);
+                        opStack.push(prevOp);
+                        operand = next;
+                    } else {
+                        // otherwise lookahead is same precedence as prevOp, so add next to operand
+                        operand = operand + (prevOp == '-' ? -1 : 1) * next;
                     }
                 }
-                if (c == '-') {
-                    sign = -1;
-                } else {
-                    sign = 1;
-                }
-                prevOp = '+'; // never keep '-' as a prevOp
-            } else if (c == '*' || c == '/') {
-                if (c == '*') {
-                    operand = operand 
-                }
             }
+            prevOp = c;
         }
-
+        // special case if anything is remaining on the stack add it
+        while (!stack.isEmpty()) {
+            prevOp = opStack.pop();
+            operand = stack.pop() + (prevOp == '-' ? -1 : 1) * operand;
+        }
+        return operand;
     }
 }
