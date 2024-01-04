@@ -3,6 +3,8 @@ package leetcode.minTravelDist;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/shortest-distance-from-all-buildings/
+
  You are given an m x n grid grid of values 0, 1, or 2, where:
 
     each 0 marks an empty land that you can pass by freely,
