@@ -28,14 +28,15 @@ class Solution {
         // case: insert a '+'
         // case: insert a '*'
 
-        Stack<Integer> sums = new Stack<>();
-        sums.push(0);
+        Stack<Long> sums = new Stack<>();
+        sums.push(0L);
         backtrack(0, 0, sums, new StringBuilder());
+        results.sort(Comparator.naturalOrder());
         return results;
     }
 
     // example: 10256, target 46, ans is ["102-560"]
-    void backtrack(int i, int lastOperand, Stack<Integer> sums, StringBuilder sb) {
+    void backtrack(int i, long lastOperand, Stack<Long> sums, StringBuilder sb) {
         if (i == s.length()) {
             if (sum(sums) == target) {
                 results.add(sb.toString());
@@ -46,13 +47,13 @@ class Solution {
 
         // case: add next digit to the last operand on the stack, unless lastOperand is a 0
         // special case for 0 at the beginning of the string since we use 0 for starting lastOperand
-        int nextDigit = c - '0';
-        int topSum = sums.peek();
+        long nextDigit = c - '0';
+        long topSum = sums.peek();
         boolean isLeadingZero = i > 0 && lastOperand == 0;
         if (!isLeadingZero) {
             sums.pop();
             // calculate new last operand from sb
-            int newLastOp = lastOperand * 10 + nextDigit;
+            long newLastOp = lastOperand * 10 + nextDigit;
             sb.append(c);
             // the top of sums could be equal to lastOperand or it could be a multiple of lastOperand
             if (topSum == lastOperand) {
@@ -94,8 +95,8 @@ class Solution {
         }
     }
 
-    int sum(Stack<Integer> sums) {
-        int sum = 0;
+    long sum(Stack<Long> sums) {
+        long sum = 0;
         for (int i = 0; i < sums.size(); i++) {
             sum += sums.get(i);
         }
