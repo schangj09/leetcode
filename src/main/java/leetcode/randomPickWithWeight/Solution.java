@@ -30,20 +30,18 @@ class Solution {
     }
 
     public int pickIndex() {
-        int r = (int)Math.random()*sums[sums.length-1];
+        int r = (int)(Math.random()*sums[sums.length-1]);
         // binary search for sums[k] such that sums[k] <= r and sums[k+1] > r
-        return find(r, 0, sums.length-1);
-    }
-
-    int find(int r, int start, int end) {
-        if (start == end) {
-            return start;
+        int start = 0;
+        int end = sums.length-1;
+        while (start < end) {
+            int mid = start + (end - start)/2; // avoid overflow
+            if (r < sums[mid]) {
+                end = mid;
+            } else {
+                start = mid+1;
+            }
         }
-        int mid = (start + end)/2;
-        if (r < sums[mid]) {
-            return find(r, start, mid);
-        } else {
-            return find(r, mid+1, end);
-        }
+        return start;
     }
 }
