@@ -12,58 +12,60 @@ After merging the accounts, return the accounts in the following format: the fir
 
  */
 class Solution {
+    List<List<String>> result = new ArrayList<>();
 
     // idea is to make a graph and traverse connected accounts and merge
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         int n = accounts.size();
+
+        // the graph of connected account edges
+        Map<Integer, Set<Integer>> g = new HashMap<>();
+
+        // map of email to account id
+        Map<String, Set<Integer>> emails = new HashMap<>();
         
-        // build the graph as a 2d array - 2 account ids are linked if there is an overlapping email
-        Map<String, List<Integer>> emailsMap = new HashMap<>();
-        boolean[][] graph = new boolean[n][n];
-        for (int a = 0; a < n; a++) {
-            List<String> acct = accounts.get(a);
-            for (int i = 1; i < acct.size(); i++) {
-                String email = acct.get(i);
-                List<Integer> ids = emailsMap.computeIfAbsent(email, (x) -> new ArrayList<>());
-                ids.add(a);
-                // add bidirectional graph edge for any overlapping accounts found
-                for (int b : ids) {
-                    graph[a][b] = true;
-                    graph[b][a] = true;
+        // build the graph
+        int a = 0;
+        for (List<String> acct : accounts) {
+            Set<Integer> edges = g.computeIfAbsent(a, (x) -> new HashSet<>());
+            for (int j = 1; j < acct.size(); j++) {
+                String email = acct.get(a);
+                Set<Integer> emailAccts = emails.computeIfAbsent(email, (x) -> new HashSet<>());
+                emailAccts.add(a);
+                for (int b : emails.get(email)) {
+                    edges.add(b);
+                    g.computeIfAbsent(b, (x) -> new HashSet<>()).add(a);
                 }
             }
+
+            a++;
         }
 
-        // traverse all account ids until all are visited
-        List<List<String>> result = new ArrayList<>();
-        boolean[] visited = new boolean[n];
-        for (int a = 0; a < n; a++) {
-            if (!visited[a]) {
-                Set<String> emails = new HashSet<>();
-                traverse(a, graph, visited, accounts, emails);
-                List<String> acct = new ArrayList<>(emails);
-                acct.sort(Comparator.naturalOrder());
+        // traverse the graph with DFS search
+        Set<Integer> visited = new HashSet<>();
+        for (int k : g.keySet()) {
+            if (!visited.contains(k)) {
+                Set<String> acctEmails = new HashSet<>();
+                dfs(g, k, visited, accounts, acctEmails);
 
-                String accountName = accounts.get(a).get(0);
-                acct.add(0, accountName);
-                result.add(acct);
+                List<String> emlList = new ArrayList<>(acctEmails);
+                emlList.sort(Comparator.naturalOrder());
+                emlList.add(0, accounts.get(k).get(0));
+                result.add(emlList);
             }
         }
         return result;
     }
 
-    void traverse(int a, boolean[][] graph, boolean[] visited, List<List<String>> accounts, Set<String> emails) {
-        if (!visited[a]) {
-            visited[a] = true;
-            // add emails from account a and recurse on connected accounts
-            for (int j = 1; j < accounts.get(a).size(); j++) {
-                emails.add(accounts.get(a).get(j));
-            }
-            for (int b = 0; b < accounts.size(); b++) {
-                // recurse on any connected account
-                if (!visited[b] && graph[a][b]) {
-                    traverse(b, graph, visited, accounts, emails);
-                }
+    void dfs(Map<Integer, Set<Integer>> g, int k, Set<Integer> visited, List<List<String>> accounts, Set<String> acctEmails) {
+        visited.add(k);
+        List<String> kEml = accounts.get(k);
+        for (int e = 1; e < kEml.size(); e++) {
+            acctEmails.add(kEml.get(e));
+        }
+        for (int l : g.get(k)) {
+            if (!visited.contains(l)) {
+                dfs(g, l, visited, accounts, acctEmails);
             }
         }
     }
