@@ -45,20 +45,29 @@ class Node {
         prev.next = n;
         return head;
     }
-    // find a node where the next node value is >= val and prev node is less than or equal (or reach 
-    // end list)
-    // Need to handle case where all nodes are less than val, in which case, we 
-    // should add val after the greatest node.
-    // Also, must detect a cycle in case all nodes have the same value and that value is less than target val.
+    // iterate the list and look for place to insert
+    // 3 cases:
+    // a) insert inside the list (n <= val <= next)
+    // b) outside the list, i.e. after the greatest item (n > next && val > n || val < next)
+    // c) whole list has only one number, then insert anywhere
     Node findInsert(Node n, int val) {
         // remember start pointer to detect the cycle
         Node end = n;
         do {
-            if (n.val == val || (n.val < val && n.next.val >= val)) {
-                break;
+            // inside the list
+            if (n.val <= n.next.val) {
+                if (val >= n.val && val <= n.next.val) {
+                    return n;
+                }
+            } else {
+                // outside the list
+                if (val >= n.val || val <= n.next.val) {
+                    return n;
+                }
             }
             n = n.next;
         } while (n != end);
+        // all list items equal, so return any node
         return n;
     }
 
