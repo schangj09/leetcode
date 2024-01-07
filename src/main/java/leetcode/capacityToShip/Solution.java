@@ -13,8 +13,6 @@ shipped within days days.
 
  */
 public class Solution {
-    long [] prefix;
-
     public int shipWithinDays(int[] weights, int days) {
         // first idea:
         // take ceil(total weight divided by days) for a min target capacity
@@ -32,45 +30,45 @@ public class Solution {
         // didn't quite get all edge cases. It does work though and would improve the 
         // overall running time if combined with a binary search of capacities.
 
+        // Normal solution is to do a simple linear scan to check a given capacity, but
+        // use binary search to narrow down to a correct capacity.
+
         // get min target capacity
         int n = weights.length;
-        prefix = new long[n+1];
-        // use 1 based offsets for the prefixSum
-        for (int i = 1; i <= n; i++) {
-            prefix[i] = prefix[i-1] + weights[i-1];
+        int totalWeight = 0;
+        int maxWeight = 0;
+        for (int i = 0; i < n; i++) {
+            totalWeight = totalWeight + weights[i];
+            maxWeight = Math.max(maxWeight, weights[i]);
         }
-        long totalWeight = prefix[n];
-        int targetCapacity = (int)(totalWeight/days + 1);
+        int minCapacity = Math.max((int)(totalWeight/days), maxWeight);
 
-        while (!checkCapacity(days, targetCapacity)) {
-            System.out.println(String.format("checked: %d", targetCapacity));
-            targetCapacity++;
+        int l = minCapacity;
+        int r = totalWeight;
+        while (l < r) {
+            int mid = l + (r-l)/2;
+            if (checkCapacity(days, mid, weights)) {
+                r = mid;
+            } else {
+                l = mid+1;
+            }
         }
-        return targetCapacity;
+        return l;
     }
 
-    boolean checkCapacity(int days, int capacity) {
-        int n = prefix.length;
-        // for day d, find index of next day start
-        int i = 0;
-        for (int d = 1; d < days-1 && i < n; d++) {
-            // binary search for next prefixSum that will start the next day
-            long searchTarget = prefix[i] + capacity;
-            int left = i;
-            int right = n;
-            while (left < right) {
-                int mid = left + (right-left)/2;
-                System.out.println(String.format("find: %d, left: %d %d, right: %d %d", searchTarget, left, prefix[left], right, prefix[right-1]));
-                if (searchTarget >= prefix[mid]) { // perform right binary search for index after the target val when equal 
-                    left = mid+1;
-                } else {
-                    right = mid;
-                }
+    boolean checkCapacity(int days, int capacity, int[] weights) {
+        int n = weights.length;
+        // increment d each time the container is full - success if d < days
+        int d = 0;
+        int sum = 0;
+        for (int i = 0; i < n; i++) {
+            if (sum + weights[i] > capacity) {
+                d++;
+                sum = 0;
+            } else {
+                sum += weights[i];
             }
-            System.out.println(String.format("find: %d, index: %d", searchTarget, left));
-            i = left-1;
         }
-        // fits if the cost from the last searchTarget to the end is less than or equal to the capacity
-        return prefix[n-1] - prefix[i] <= capacity;
+        return d < days;
     }
 }
