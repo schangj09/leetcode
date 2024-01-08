@@ -1,5 +1,8 @@
 package leetcode.capacityToShip;
 
+import java.util.Arrays;
+import java.util.function.BiFunction;
+
 /*
 A conveyor belt has packages that must be shipped from one port to another within days days.
 
@@ -13,6 +16,7 @@ shipped within days days.
 
  */
 public class Solution {
+    int[] prefix;
     public int shipWithinDays(int[] weights, int days) {
         // first idea:
         // take ceil(total weight divided by days) for a min target capacity
@@ -31,7 +35,12 @@ public class Solution {
         // overall running time if combined with a binary search of capacities.
 
         // Normal solution is to do a simple linear scan to check a given capacity, but
-        // use binary search to narrow down to a correct capacity.
+        // we can use use binary search on prefixSums to faster check each capacity.
+        prefix = new int[weights.length];
+        prefix[0] = weights[0];
+        for (int k = 0; k < weights.length; k++) {
+            prefix[k] = prefix[k-1] + weights[k];
+        }
 
         // get min target capacity
         int n = weights.length;
@@ -58,17 +67,31 @@ public class Solution {
 
     boolean checkCapacity(int days, int capacity, int[] weights) {
         int n = weights.length;
-        // increment d each time the container is full - success if d < days
-        int d = 0;
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            if (sum + weights[i] > capacity) {
-                d++;
-                sum = 0;
+        int i = 0;
+        int prevSum = 0;
+        for (int d = 0; d < days && i < n; d++) {
+            // find next prefixSum which is strictly over prevSum + capacity
+            i = find(prefix, i, prefix.length, prevSum + capacity, (a, b) -> a < b);
+            prevSum = prefix[i-1];
+        }
+        return i == n;
+    }
+
+
+    // returns the leftmost index for which condition is true
+    // - to find leftmost instance of target (i.e. insertBefore), use "<=" and
+    // to find value after target (i.e. insertAfter), use "<"
+    int find(int[] nums, int start, int end, int target, BiFunction<Integer, Integer, Boolean> condition) {
+        int l = start;
+        int r = end;
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (condition.apply(target, nums[mid])) {
+                r = mid;
             } else {
-                sum += weights[i];
+                l = mid + 1;
             }
         }
-        return d < days;
+        return l;
     }
 }
