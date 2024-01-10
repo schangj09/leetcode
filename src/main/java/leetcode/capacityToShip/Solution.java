@@ -1,7 +1,6 @@
 package leetcode.capacityToShip;
 
-import java.util.Arrays;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /*
 A conveyor belt has packages that must be shipped from one port to another within days days.
@@ -38,7 +37,7 @@ public class Solution {
         // we can use use binary search on prefixSums to faster check each capacity.
         prefix = new int[weights.length];
         prefix[0] = weights[0];
-        for (int k = 0; k < weights.length; k++) {
+        for (int k = 1; k < weights.length; k++) {
             prefix[k] = prefix[k-1] + weights[k];
         }
 
@@ -52,17 +51,7 @@ public class Solution {
         }
         int minCapacity = Math.max((int)(totalWeight/days), maxWeight);
 
-        int l = minCapacity;
-        int r = totalWeight;
-        while (l < r) {
-            int mid = l + (r-l)/2;
-            if (checkCapacity(days, mid, weights)) {
-                r = mid;
-            } else {
-                l = mid+1;
-            }
-        }
-        return l;
+        return find(minCapacity, totalWeight, (k) -> checkCapacity(days, k, weights));
     }
 
     boolean checkCapacity(int days, int capacity, int[] weights) {
@@ -71,22 +60,27 @@ public class Solution {
         int prevSum = 0;
         for (int d = 0; d < days && i < n; d++) {
             // find next prefixSum which is strictly over prevSum + capacity
-            i = find(prefix, i, prefix.length, prevSum + capacity, (a, b) -> a < b);
+            final int targetCapacity = prevSum + capacity;
+            i = find(i, prefix.length, (k) -> targetCapacity < prefix[k]);
             prevSum = prefix[i-1];
         }
         return i == n;
     }
 
-
-    // returns the leftmost index for which condition is true
-    // - to find leftmost instance of target (i.e. insertBefore), use "<=" and
-    // to find value after target (i.e. insertAfter), use "<"
-    int find(int[] nums, int start, int end, int target, BiFunction<Integer, Integer, Boolean> condition) {
+    // find returns the leftmost index for which condition is true - returns end index if condition is false 
+    // for all indices.
+    // condition must be a function c that satisfies the property:
+    //   if c(i)=true then c(i+1)=true for all i start to end-2
+    //
+    // For example:
+    // - to find leftmost instance of target (i.e. insertBefore), use "target <= nums[i]" and
+    // to find value after target (i.e. insertAfter), use "target < nums[i]"
+    int find(int start, int end, Function<Integer, Boolean> condition) {
         int l = start;
         int r = end;
         while (l < r) {
             int mid = l + (r - l) / 2;
-            if (condition.apply(target, nums[mid])) {
+            if (condition.apply(mid)) {
                 r = mid;
             } else {
                 l = mid + 1;
