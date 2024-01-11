@@ -44,6 +44,10 @@ public class Solution {
                 buf[j++] = path.charAt(k);
                 k++;
             }
+            // 3 cases:
+            // 1) dir name empty or single dot
+            // 2) dir name is ".."
+            // 3) dir name is valid name
             if (k == i
                 || (k == i+1 && path.charAt(i) == '.')) {
                 // dir name empty or single dot
