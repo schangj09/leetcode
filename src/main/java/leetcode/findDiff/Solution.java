@@ -26,6 +26,6 @@ class Solution {
       }
     }
 
-    return Arrays.asList(new List[]{a1, a2});
+    return Arrays.asList(a1, a2);
   }
 }

@@ -1,7 +1,5 @@
 package leetcode.magicDictionary;
 
-import java.util.*;
-
 /*
 Design a data structure that is initialized with a list of different words. Provided a string, you should determine if you can change exactly one character in this string to match any word in the data structure.
 

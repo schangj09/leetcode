@@ -1,7 +1,6 @@
 package leetcode.aster;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Not solved - gave up and checked solution - a better algorithm is to use a

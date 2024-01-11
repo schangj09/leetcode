@@ -1,6 +1,5 @@
 package leetcode.convertBSTToList;
 
-import java.util.*;
 /*
  Convert a Binary Search Tree to a sorted Circular Doubly-Linked List in place.
 

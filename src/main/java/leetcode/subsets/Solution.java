@@ -9,7 +9,6 @@ The solution set must not contain duplicate subsets. Return the solution in any 
  */
 public class Solution {
     public List<List<Integer>> subsets(int[] nums) {
-        int n = nums.length;
         // elements are unique
         // all subsets will be subsests of each length up to n
         // to generate subsets of size k, use each subset of size k-1

@@ -1,6 +1,5 @@
 package leetcode.atoi;
 
-import javax.management.RuntimeErrorException;
 
 class Solution {
     // good cases

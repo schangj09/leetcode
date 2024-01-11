@@ -32,9 +32,8 @@ class Solution {
 
     // idea is to make a graph and traverse connected accounts and merge
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        int n = accounts.size();
 
-// the graph of connected account edges
+        // the graph of connected account edges
         Map<Integer, Set<Integer>> g = new HashMap<>();
 
         // map of email to account id

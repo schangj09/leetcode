@@ -1,7 +1,6 @@
 package leetcode.alienAlpha;
 import java.util.*;
 
-import javax.swing.SpinnerDateModel;
 public class Solution {
     public String alienOrder(String[] words) {
         int n = words.length;
@@ -50,7 +49,6 @@ public class Solution {
     }
 
     List<Character> toposort(Map<Character, Set<Character>> g) {
-        int n = g.size();
         Map<Character, Integer> indegree = new HashMap<>();
         for (Character u : g.keySet()) {
             for (Character v : g.get(u)) {
