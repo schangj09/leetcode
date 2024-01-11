@@ -1,4 +1,4 @@
-package leetcode.closestrings.leetcode.stars;
+package leetcode.stars;
 
 class Solution {
     public String removeStars(String s) {
