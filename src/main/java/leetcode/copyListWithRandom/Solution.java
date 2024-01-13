@@ -37,6 +37,10 @@ public class Solution {
         // then fix pass 2 to restore the original list random pointers back from the
         // holding copy
 
+        // From editorial ---- the approach with O(1) is basically the same, but instead of a holding copy,
+        // we insert each new node in between the 2 old nodes, then set the random pointers after creating all
+        // new nodes. Finally unzip the 2 lists and return the new list.
+
         // holding copy
         Node holdingHead = new Node(head.val);
         Node p = holdingHead;
