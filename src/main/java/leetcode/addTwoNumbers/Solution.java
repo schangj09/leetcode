@@ -1,8 +1,9 @@
 package leetcode.addTwoNumbers;
 
 /**
- * Definition for singly-linked list.
- * }
+Add 2 numbers.
+Numbers given as a list of digits already in reverse order
+
  */
 class Solution {
     public class ListNode {

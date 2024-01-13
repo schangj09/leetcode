@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package leetcode.combinationSum;
 import java.util.*;
 /**
  * NOTE: some inefficiency could be avoided - I am computing all the
  * combinations, but if we process the numbers in increasing order, we could
  * skip combinations that we already tried
- * @author Jeffrey Schang
  */
 public class Solution {
     Set<Integer> remaining = new HashSet<>();
