@@ -1,7 +1,5 @@
 package leetcode.multiplyStrings;
 
-import java.util.*;
-
 /*
 Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
 
@@ -40,7 +38,6 @@ public class Solution {
     }
 
     void multAppendReversed(String s, int d, StringBuffer sb) {
-        // System.out.println(String.format("%s, %d", s, d));
         int n = s.length();
         int carry = 0;
         for (int i = n-1; i >= 0; i--) {
@@ -52,11 +49,9 @@ public class Solution {
         if (carry != 0) {
             sb.append((char)(carry + '0'));
         }
-        // System.out.println(String.format("%s", sb));
     }
 
     String sum(String[] s) {
-        //System.out.println(String.format("%s", Arrays.toString(s)));
         StringBuffer sb = new StringBuffer();
         int n = s.length;
         int carry = 0;
@@ -79,7 +74,6 @@ public class Solution {
             }
         }
         if (carry != 0) {
-            //System.out.println(String.format("carry %d", carry));
             while (carry > 0) {
                 sb.append((char)(carry % 10 + '0'));
                 carry = carry/10;
