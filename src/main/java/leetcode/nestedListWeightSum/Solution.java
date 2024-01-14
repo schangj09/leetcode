@@ -3,6 +3,9 @@ package leetcode.nestedListWeightSum;
 import java.util.List;
 
 /*
+https://leetcode.com/problems/nested-list-weight-sum/description/
+Medium
+
 You are given a nested list of integers nestedList. Each element is either an integer or a list whose elements 
 may also be integers or other lists.
 

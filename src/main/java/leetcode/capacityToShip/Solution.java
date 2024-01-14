@@ -3,6 +3,9 @@ package leetcode.capacityToShip;
 import java.util.function.Function;
 
 /*
+https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+Medium
+
 A conveyor belt has packages that must be shipped from one port to another within days days.
 
 The ith package on the conveyor belt has a weight of weights[i]. Each day, we load the ship with packages on 

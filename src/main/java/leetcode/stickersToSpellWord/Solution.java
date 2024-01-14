@@ -3,13 +3,18 @@ package leetcode.stickersToSpellWord;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/stickers-to-spell-word/
+Hard
+
 We are given n different types of stickers. Each sticker has a lowercase English word on it.
 
-You would like to spell out the given string target by cutting individual letters from your collection of stickers and rearranging them. You can use each sticker more than once if you want, and you have infinite quantities of each sticker.
+You would like to spell out the given string target by cutting individual letters from your collection of stickers and 
+rearranging them. You can use each sticker more than once if you want, and you have infinite quantities of each sticker.
 
 Return the minimum number of stickers that you need to spell out target. If the task is impossible, return -1.
 
-Note: In all test cases, all words were chosen randomly from the 1000 most common US English words, and target was chosen as a concatenation of two random words.
+Note: In all test cases, all words were chosen randomly from the 1000 most common US English words, and target was chosen as 
+a concatenation of two random words.
 
  */
 public class Solution {
@@ -17,6 +22,7 @@ public class Solution {
     int hit = 0;
     int call = 0;
 
+    // Not solved - still some bug, but it is nearly there - algorithm is correct
     public int minStickers(String[] stickers, String target) {
         // the idea is to use backtracking to find each possible solution and
         // track the solution with the min number of stickers

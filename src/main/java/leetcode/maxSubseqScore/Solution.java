@@ -6,7 +6,8 @@ import java.util.*;
  * https://leetcode.com/problems/maximum-subsequence-score/description/
  * Medium
  * 
-You are given two 0-indexed integer arrays nums1 and nums2 of equal length n and a positive integer k. You must choose a subsequence of indices from nums1 of length k.
+You are given two 0-indexed integer arrays nums1 and nums2 of equal length n and a positive integer k. You must choose a 
+subsequence of indices from nums1 of length k.
 
 For chosen indices i0, i1, ..., ik - 1, your score is defined as:
 
@@ -15,7 +16,8 @@ For chosen indices i0, i1, ..., ik - 1, your score is defined as:
 
 Return the maximum possible score.
 
-A subsequence of indices of an array is a set that can be derived from the set {0, 1, ..., n-1} by deleting some or no elements.
+A subsequence of indices of an array is a set that can be derived from the set {0, 1, ..., n-1} by deleting some or no 
+elements.
  */
 
  /**

@@ -3,11 +3,18 @@ package leetcode.findRange;
 import java.util.function.*;
 
 /*
-Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+Medium
+
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target 
+value.
 
 If target is not found in the array, return [-1, -1].
 
 You must write an algorithm with O(log n) runtime complexity.
+
+Posted my solution:
+https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/solutions/4536143/funciton-programming-solution-for-left-and-right-search-with-explanation-of-binary-search-condition/
 
  */
 public class Solution {

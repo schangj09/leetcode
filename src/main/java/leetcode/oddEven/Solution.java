@@ -4,7 +4,8 @@ package leetcode.oddEven;
  * https://leetcode.com/problems/odd-even-linked-list/
  * Medium
  * 
-Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even 
+indices, and return the reordered list.
 
 The first node is considered odd, and the second node is even, and so on.
 

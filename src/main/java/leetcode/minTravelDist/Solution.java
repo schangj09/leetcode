@@ -4,6 +4,7 @@ import java.util.*;
 
 /*
 https://leetcode.com/problems/shortest-distance-from-all-buildings/
+Hard
 
  You are given an m x n grid grid of values 0, 1, or 2, where:
 
@@ -11,13 +12,19 @@ https://leetcode.com/problems/shortest-distance-from-all-buildings/
     each 1 marks a building that you cannot pass through, and
     each 2 marks an obstacle that you cannot pass through.
 
-You want to build a house on an empty land that reaches all buildings in the shortest total travel distance. You can only move up, down, left, and right.
+You want to build a house on an empty land that reaches all buildings in the shortest total travel distance. You can only 
+move up, down, left, and right.
 
-Return the shortest travel distance for such a house. If it is not possible to build such a house according to the above rules, return -1.
+Return the shortest travel distance for such a house. If it is not possible to build such a house according to the above 
+rules, return -1.
 
 The total travel distance is the sum of the distances between the houses of the friends and the meeting point.
  */
 public class Solution {
+
+    // Not solved - need to revisit this - possibly need some memoization
+    //
+    //
     public int shortestDistance(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;

@@ -2,6 +2,13 @@ package leetcode.getSubstrings;
 
 import java.util.*;
 
+/*
+https://leetcode.com/problems/permutations/
+Medium
+
+Get Substrings is not on leetcode, but there is an identical problem - Permutations.
+
+ */
 public class Solution {
     // get all pssible substrings of a string - in order of starting point in the string
     List<String> getSubStrings(String s) {

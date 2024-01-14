@@ -3,6 +3,9 @@ package leetcode.basicCalculator1;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/basic-calculator/description/
+Hard
+
 Given a string s which represents an expression, evaluate this expression and return its value. 
 
 The operators are only addition and substraction and grouping parentheses.

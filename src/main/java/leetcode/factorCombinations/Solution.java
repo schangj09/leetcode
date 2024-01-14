@@ -3,6 +3,9 @@ package leetcode.factorCombinations;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/factor-combinations/
+Medium
+
 Numbers can be regarded as the product of their factors.
 
     For example, 8 = 2 x 2 x 2 = 2 x 4.

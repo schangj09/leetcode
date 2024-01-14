@@ -3,6 +3,9 @@ package leetcode.friendsOfAges;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/friends-of-appropriate-ages/description/
+Medium
+
  There are n persons on a social media website. You are given an integer array ages where ages[i] is the age of the ith person.
 
 A Person x will not send a friend request to a person y (x != y) if any of the following conditions is true:
@@ -13,7 +16,8 @@ A Person x will not send a friend request to a person y (x != y) if any of the f
 
 Otherwise, x will send a friend request to y.
 
-Note that if x sends a request to y, y will not necessarily send a request to x. Also, a person will not send a friend request to themself.
+Note that if x sends a request to y, y will not necessarily send a request to x. Also, a person will not send a friend 
+request to themself.
 
 Return the total number of friend requests made.
 

@@ -4,7 +4,8 @@ package leetcode.read4;
  * https://leetcode.com/problems/read-n-characters-given-read4-ii-call-multiple-times/
  * Hard
  * 
-Given a file and assume that you can only read the file using a given method read4, implement a method read to read n characters. Your method read may be called multiple times.
+Given a file and assume that you can only read the file using a given method read4, implement a method read to read n 
+characters. Your method read may be called multiple times.
 
 Method read4:
 

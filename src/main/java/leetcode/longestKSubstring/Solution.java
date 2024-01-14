@@ -6,9 +6,10 @@ import java.util.*;
 https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/description/
 Medium
 
-Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
+Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character 
+in this substring is greater than or equal to k.
 
-if no such substring exists, return 0.
+If no such substring exists, return 0.
  */
 
 public class Solution {
