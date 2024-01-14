@@ -1,7 +1,6 @@
 package leetcode.permutations;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
 https://leetcode.com/problems/permutations/
@@ -10,9 +9,9 @@ Medium
 Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
  */
 public class Solution {
-    // Use recursion to get the permutations by cascading.
+    // Use recursion to create the permutations by cascading.
     //
-    // Also, see {@class leetcode.getSubstrings.Solution} for String permutations.
+    // Also, see leetcode.subsets for similar problem.
     //
     public List<List<Integer>> permute(int[] nums) {
         List<Integer> list = new ArrayList<>();

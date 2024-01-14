@@ -6,7 +6,8 @@ import java.util.*;
 https://leetcode.com/problems/permutations/
 Medium
 
-Get Substrings is not on leetcode, but there is an identical problem - Permutations.
+Get Substrings is not on leetcode, but there is a similar problem - leetcode.subsets.
+Also, for reference see leetcode.permutations.
 
  */
 public class Solution {
