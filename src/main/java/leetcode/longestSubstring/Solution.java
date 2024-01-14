@@ -1,6 +1,20 @@
 package leetcode.longestSubstring;
 import java.util.*;
 
+/*
+ * https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+ * Medium
+ * 
+Given a string s, find the length of the longest
+substring
+without repeating characters.
+
+Constraints:
+
+    0 <= s.length <= 5 * 104
+    s consists of English letters, digits, symbols and spaces.
+
+ */
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
         // keep a pointer at start and end of substring, hashset of characters in it

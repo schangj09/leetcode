@@ -1,5 +1,9 @@
 package leetcode.maximumDepth;
 
+/*
+ * https://leetcode.com/problems/maximum-depth-of-binary-tree/
+ * Easy
+ */
 class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {

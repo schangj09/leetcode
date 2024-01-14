@@ -3,6 +3,9 @@ package leetcode.findKClosestElements;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/find-k-closest-elements/description/
+Medium
+
 Given a sorted integer array arr, two integers k and x, return the k closest integers to x in the array. The 
 result should also be sorted in ascending order.
 

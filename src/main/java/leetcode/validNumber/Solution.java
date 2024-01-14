@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /*
+https://leetcode.com/problems/valid-number/
+Hard
+
 A valid number can be split up into these components (in order):
 
     A decimal number or an integer.

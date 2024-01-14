@@ -1,6 +1,9 @@
 package leetcode.triePrefix;
 
 /*
+https://leetcode.com/problems/design-add-and-search-words-data-structure/description/
+Medium
+
 Design a data structure that supports adding new words and finding if a string matches any previously added string
 with wildcard matches.
 

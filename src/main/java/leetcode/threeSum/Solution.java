@@ -2,7 +2,28 @@ package leetcode.threeSum;
 
 import java.util.*;
 
+/*
+https://leetcode.com/problems/3sum/description/
+Medium
+
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+
+Notice that the solution set must not contain duplicate triplets.
+
+ */
 public class Solution {
+
+    // The following works, but is too slow - instead can get a O(n^2) approach
+    // by sorting and then repeatedly using a sorted 2sum where the target is
+    // negative value of the current element
+    // e.g. List<List<Int>> 2sum(target, nums, start)
+    // for (int i = 0; i < n-2; i++) {
+    // results += 2sum(-nums[i], nums, i+1)
+    // }
+    //
+    // it works because of sorting, we know any matches from the left of current
+    // already were found in a previous iteration, so only need to look at matches
+    // to the right of the current
 
     static class PairIntSet extends ArrayList<Integer> {
 

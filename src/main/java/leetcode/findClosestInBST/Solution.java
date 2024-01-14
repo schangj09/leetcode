@@ -1,6 +1,16 @@
 package leetcode.findClosestInBST;
 
 /*
+https://leetcode.com/problems/closest-binary-search-tree-value/description/
+Easy
+
+Given the root of a binary search tree and a target value, return the value in the BST that is closest to the target. If there are multiple answers, print the smallest.
+
+For more see:
+Medium https://leetcode.com/problems/closest-nodes-queries-in-a-binary-search-tree/
+Hard https://leetcode.com/problems/closest-binary-search-tree-value-ii/
+
+
 Given the root of a binary search tree and a target value, return the value in the BST that is closest to the target. If there are multiple answers, print the smallest.
 
 

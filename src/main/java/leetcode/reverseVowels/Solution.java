@@ -1,9 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package leetcode.reverseVowels;
 
+/*
+https://leetcode.com/problems/reverse-vowels-of-a-string/editorial/?envType=study-plan-v2&envId=leetcode-75
+Easy
+
+Given a string s, reverse only all the vowels in the string and return it.
+
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+ 
+ */
 /**
  * NOTES: use "char[] c = s.toCharArray" and "return new String(c)"
  * Its faster to work with char array rather than StringBuffer.

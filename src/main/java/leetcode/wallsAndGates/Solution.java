@@ -3,6 +3,9 @@ package leetcode.wallsAndGates;
 import java.util.*;
 
 /*
+https://leetcode.com/problems/walls-and-gates/
+Medium
+
 You are given an m x n grid rooms initialized with these three possible values.
 
     -1 A wall or an obstacle.

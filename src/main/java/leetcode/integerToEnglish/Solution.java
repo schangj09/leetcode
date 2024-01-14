@@ -2,6 +2,16 @@ package leetcode.integerToEnglish;
 
 import java.util.*;
 
+/*
+ * https://leetcode.com/problems/integer-to-english-words/
+ * Hard
+ * 
+Convert a non-negative integer num to its English words representation.
+ 
+Constraints:
+    0 <= num <= 231 - 1
+
+ */
 // convert a non-negative integer to its english words
 public class Solution {
     Map<Integer, String> dict10 = new HashMap<>();

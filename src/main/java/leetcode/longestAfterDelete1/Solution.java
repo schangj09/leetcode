@@ -1,12 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package leetcode.longestAfterDelete1;
 
 /**
- *
- * @author Jeffrey Schang
+ * https://leetcode.com/problems/longest-subarray-of-1s-after-deleting-one-element/description
+ * Medium
+ * 
+Given a binary array nums, you should delete one element from it.
+
+Return the size of the longest non-empty subarray containing only 1's in the resulting array. Return 0 if there is no such subarray.
+
  */
 public class Solution {
 
