@@ -21,36 +21,34 @@ public class Solution {
         // then have 2 pointers left and right, decrement or increment depending on 
         // which next value is closer to x until right - left = k
 
-        // the tricky part is to find the start index.
-        // cases:
-        // 1) x <= a[0]
-        // 2) x >= a[n-1]
-        // 3) x = a[i] and x < a[i+1]
-        // 4) x = a[i] and x > a[i-1]
-        // 5) a[i] < x < a[i+1]
+        // the start index should be the leftmost value that is greater or equal to the target
 
         int n = arr.length;
-        // binary search interval for index of first val < x and right val > x
+        // binary search interval for index of leftmost value >= x
         int i = 0, j = n-1;
         while (j > i) {
             int mid = i + (j-i)/2;
-            if (arr[mid] >= x) {
+            if (x <= arr[mid]) {
                 j = mid;
             } else {
                 i = mid+1;
             }
         }
-        int start = i - 1;
-        int end = start+1;
+        int start = i;
+        // choose closest value for start - either index i or i-1
+        if (arr[i] != x
+                && i > 0
+                && Math.abs(arr[i-1] - x) <= Math.abs(arr[i] - x)) {
+            start = i - 1;
+        }
+        int end = start + 1;
 
         while (end - start < k) {
-            if (start < 0) {
+            if (start == 0) {
                 end++;
                 continue;
             }
-            int leftDist = start == 0 ? Integer.MAX_VALUE : Math.abs(arr[start] - x);
-            int rightDist = end == n ? Integer.MAX_VALUE : Math.abs(arr[end] - x);
-            if (leftDist <= rightDist) {
+            if (end == n || Math.abs(arr[start-1] - x) <= Math.abs(arr[end] - x)) {
                 start--;
             } else {
                 end++;
