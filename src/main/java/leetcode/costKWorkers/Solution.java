@@ -48,8 +48,15 @@ public class Solution {
         // then iterate for nextLeft until find an index in available workers
 
 
+        // After checking the editorial, I see my original priority queue choice was correct.
+        // I was just confused about handling it when candidates is overlapping from the left and
+        // right. In case of overlap, it doesn't matter which queue it goes in to, but it 
+        // should just not be in both queues.
+
+
         // keep the array of costs and remove one each time, then iterate by candidates
-        // algorithm should be O(KC)
+        // algorithm should be O(KC) ... but this is actually too slow
+        // priority queues time will be O(n + klogm) where m is the 'candidates' value
 
         int n = costs.length;
         List<Integer> remainingWorkers = new ArrayList<>(n);
