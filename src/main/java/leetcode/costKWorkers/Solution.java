@@ -1,6 +1,6 @@
 package leetcode.costKWorkers;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
  * https://leetcode.com/problems/total-cost-to-hire-k-workers/description
@@ -40,43 +40,44 @@ public class Solution {
         // In fact, candidates can start out overlapping (if greater than n/2).
         // This would make it impossible to remove elements from the priority heaps.
 
-        // So, given constraints on the problem are few elements, it makes more sense to iterate
-        // through the remaining workers on each hiring selection.
+        // Tried O(Nk) iterations, but time limit exceeded.
+        // So, we need a data structure to represent the remaining workers.
+        // Thinking to use a priority queue for the costs and a set for the 
+
+        // available workers, and leftSet and rightSet. When we choose one from the leftSet,
+        // then iterate for nextLeft until find an index in available workers
+
+
+        // keep the array of costs and remove one each time, then iterate by candidates
+        // algorithm should be O(KC)
 
         int n = costs.length;
-        boolean[] selected = new boolean[n];
+        List<Integer> remainingWorkers = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            remainingWorkers.add(costs[i]);
+        }
 
         int cost = 0;
         for (int i = 0; i < k; i++) {
             int minCost = Integer.MAX_VALUE;
             int minCostIndex = -1;
-            int left = 0;
-            int count = 0;
-            while (left < n && count < candidates) {
-                if (!selected[left]) {
-                    count++;
-                    if (costs[left] < minCost) {
-                        minCost = costs[left];
-                        minCostIndex = left;
-                    }
+            int m = remainingWorkers.size();
+            for (int left = 0; left < candidates && left < m; left++) {
+                if (remainingWorkers.get(left) < minCost) {
+                    minCost = remainingWorkers.get(left);
+                    minCostIndex = left;
                 }
-                left++;
             }
-            int right = n-1;
-            count = 0;
-            while (right >= 0 && count < candidates) {
-                if (!selected[right]) {
-                    count++;
-                    if (costs[right] < minCost) {
-                        minCost = costs[right];
-                        minCostIndex = right;
-                    }
+            int count = 0;
+            for (int right = m-1; count < candidates && right >= candidates; right--, count++) {
+                if (remainingWorkers.get(right) < minCost) {
+                    minCost = remainingWorkers.get(right);
+                    minCostIndex = right;
                 }
-                right--;
             }
 
             cost += minCost;
-            selected[minCostIndex] = true;
+            remainingWorkers.remove(minCostIndex);
         }
         return cost;
     }
