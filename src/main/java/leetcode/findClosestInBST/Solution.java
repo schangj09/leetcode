@@ -15,7 +15,6 @@ Hard https://leetcode.com/problems/closest-binary-search-tree-value-ii/
 Given the root of a binary search tree and a target value, return the value in the BST that is closest to the target. If 
 there are multiple answers, print the smallest.
 
-
 */
 public class Solution {
     public class TreeNode {
@@ -37,6 +36,8 @@ public class Solution {
         return find(root, target, Integer.MAX_VALUE, Integer.MIN_VALUE);
     }
 
+    // Note: I used a simpler algorithm for this in the problem findKClosestInBST -
+    // just need to pass through the closest value seen and see if the next node is closer
     int find(TreeNode node, double target, int minAncestor, int maxAncestor) {
         if (node == null) {
             if (minAncestor == Integer.MAX_VALUE) {
