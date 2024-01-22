@@ -39,6 +39,13 @@ public class SnakeGame {
         "D", new int[] { 1, 0 }
     );
 
+    // Idea is to store the visited cells in a circular queue - the maximum length of the snake is the
+    // the number of food items.
+    // We need to iterate the visited items by the current length of the snake to check for hitting itself.
+    //
+    // After reviewing the editorial, I realize this is O(n) for n length of food. Its fine for the constraints 
+    // of the leetcode problem. However, to optimize this for a length on order of O(w*h), then we should also 
+    // track the snake coordinates in a HashSet. This can be updated in O(1) and allows the test in O(1).
     public SnakeGame(int width, int height, int[][] food) {
         this.food = food;
         n = food.length;
