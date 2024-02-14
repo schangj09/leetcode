@@ -1,5 +1,7 @@
 package leetcode.maximumDepth;
 
+import leetcode.TreeNode;
+
 /*
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/
  * Easy
@@ -15,20 +17,5 @@ class Solution {
             return 0;
         }
         return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
-    }
-
-
-
- static class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode() {}
-     TreeNode(int val) { this.val = val; }
-     TreeNode(int val, TreeNode left, TreeNode right) {
-         this.val = val;
-         this.left = left;
-         this.right = right;
-     }
     }
 }

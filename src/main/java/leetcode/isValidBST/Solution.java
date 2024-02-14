@@ -1,5 +1,7 @@
 package leetcode.isValidBST;
 
+import leetcode.TreeNode;
+
 /*
  * https://leetcode.com/problems/validate-binary-search-tree/
  * Medium
@@ -17,27 +19,6 @@ A valid BST is defined as follows:
 
  */
 class Solution {
-    /**
-     * Definition for a binary tree node.
-     **/
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     private TreeNode prev = null;
 

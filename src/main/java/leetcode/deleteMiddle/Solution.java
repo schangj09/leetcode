@@ -1,6 +1,8 @@
 package leetcode.deleteMiddle;
 
- /*
+import leetcode.ListNode;
+
+/*
   * https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
   * Medium
 You are given the head of a linked list. Delete the middle node, and return the head of the modified linked list.
@@ -36,15 +38,5 @@ class Solution {
         // otherwise we have prev and prev.next == slow
         prev.next = slow.next;
         return head;
-    }
-    /**
-     * Definition for singly-linked list.
-     */
-    static class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 }

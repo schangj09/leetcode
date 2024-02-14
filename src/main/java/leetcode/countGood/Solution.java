@@ -1,6 +1,8 @@
 package leetcode.countGood;
 
 import java.util.*;
+
+import leetcode.TreeNode;
 /*
  * https://leetcode.com/problems/count-good-nodes-in-binary-tree/description/?envType=study-plan-v2&envId=leetcode-75
  * Medium
@@ -40,25 +42,6 @@ public class Solution {
             }
         }
         return count;
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
 }

@@ -1,28 +1,13 @@
 package leetcode.addTwoNumbers;
 
+import leetcode.ListNode;
+
 /**
 Add 2 numbers.
 Numbers given as a list of digits already in reverse order
 
  */
 class Solution {
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-    }
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         // addition algorithm:
         // add digits x,y: v = x+y, if v > 10, then put the v%10 and carry over v/10

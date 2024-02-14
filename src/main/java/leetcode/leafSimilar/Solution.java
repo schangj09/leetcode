@@ -1,6 +1,8 @@
 package leetcode.leafSimilar;
 import java.util.*;
 
+import leetcode.TreeNode;
+
 /*
  * https://leetcode.com/problems/leaf-similar-trees/
  * Easy
@@ -36,18 +38,4 @@ class Solution {
         }
     }
 
-
-
- static class TreeNode {
-     int val;
-     TreeNode left;
-     TreeNode right;
-     TreeNode() {}
-     TreeNode(int val) { this.val = val; }
-     TreeNode(int val, TreeNode left, TreeNode right) {
-         this.val = val;
-         this.left = left;
-         this.right = right;
-     }
-    }
 }

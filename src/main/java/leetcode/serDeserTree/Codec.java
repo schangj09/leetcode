@@ -1,5 +1,7 @@
 package leetcode.serDeserTree;
 
+import leetcode.TreeNode;
+
 /*
 https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 Hard
@@ -16,32 +18,6 @@ Clarification: The input/output format is the same as how LeetCode serializes a 
 follow this format, so please be creative and come up with different approaches yourself.
  */
 public class Codec {
-    /**
-     * Definition for a binary tree node.
-     * public class TreeNode {
-     * int val;
-     * TreeNode left;
-     * TreeNode right;
-     * TreeNode(int x) { val = x; }
-     * }
-     */
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
-
     /*
      * test cases
      * 

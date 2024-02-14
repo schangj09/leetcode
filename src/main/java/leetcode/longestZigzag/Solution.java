@@ -1,5 +1,7 @@
 package leetcode.longestZigzag;
 
+import leetcode.TreeNode;
+
 /**
  * https://leetcode.com/problems/longest-zigzag-path-in-a-binary-tree/
  * Medium
@@ -37,26 +39,5 @@ public class Solution {
         return Math.max(Math.max(left, right), curLen);
     }
 
-
-
-    static class TreeNode {
-
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
 }

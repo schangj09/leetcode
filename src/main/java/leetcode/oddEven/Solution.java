@@ -1,5 +1,7 @@
 package leetcode.oddEven;
 
+import leetcode.ListNode;
+
 /*
  * https://leetcode.com/problems/odd-even-linked-list/
  * Medium
@@ -42,13 +44,6 @@ public class Solution {
         // oddend is guaranteed to be non-null so we connect the lists
         oddend.next = even;
         return odd;
-    }
-    static class ListNode {
-        int val;
-        ListNode next;
-        ListNode() {}
-        ListNode(int val) { this.val = val; }
-        ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
    
 }

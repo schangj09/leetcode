@@ -2,6 +2,8 @@ package leetcode.deleteNodeBst;
 
 import java.util.Stack;
 
+import leetcode.TreeNode;
+
 /*
  * https://leetcode.com/problems/delete-node-in-a-bst/
  * Medium (Hard)
@@ -85,25 +87,6 @@ public class Solution {
             parent.right = replacementNode;
         }
         return root;
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
 }

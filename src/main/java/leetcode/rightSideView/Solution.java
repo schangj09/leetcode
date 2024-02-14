@@ -1,6 +1,8 @@
 package leetcode.rightSideView;
 
 import java.util.*;
+
+import leetcode.TreeNode;
 /*
 https://leetcode.com/problems/binary-tree-right-side-view/?envType=study-plan-v2&envId=leetcode-75
 Medium
@@ -49,25 +51,6 @@ class Solution {
             }
         }
         return view;
-    }
-
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
     }
 
 }

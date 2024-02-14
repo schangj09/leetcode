@@ -30,21 +30,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import leetcode.TreeNode;
+
 public class Solution {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) {
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     // tests:
     // q = [1,2,3,9,11] t = [5, null, 10] -> [[-1,5][-1,5][-1,5][5,10][10,-1]]

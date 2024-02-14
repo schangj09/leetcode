@@ -2,6 +2,8 @@ package leetcode.findKClosestInBST;
 
 import java.util.*;
 
+import leetcode.TreeNode;
+
 /*
 https://leetcode.com/problems/closest-binary-search-tree-value-ii/description/
 Hard
@@ -13,20 +15,6 @@ You are guaranteed to have only one unique set of k values in the BST that are c
 
  */
 public class Solution {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) {
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     public List<Integer> closestKValues(TreeNode root, double target, int k) {
         // find closest node to start, then look at predecessor and successor until we add k nodes

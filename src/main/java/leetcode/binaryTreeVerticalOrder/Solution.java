@@ -2,6 +2,8 @@ package leetcode.binaryTreeVerticalOrder;
 
 import java.util.*;
 
+import leetcode.TreeNode;
+
 /*
 https://leetcode.com/problems/binary-tree-vertical-order-traversal/
 Medium
@@ -14,24 +16,7 @@ If two nodes are in the same row and column, the order should be from left to ri
  */
 
 class Solution {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
 
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
 
     List<List<Integer>> leftOfRoot = new ArrayList<>();
     List<List<Integer>> rightAndRoot = new ArrayList<>();

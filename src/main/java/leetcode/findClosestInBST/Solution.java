@@ -1,5 +1,7 @@
 package leetcode.findClosestInBST;
 
+import leetcode.TreeNode;
+
 /*
 https://leetcode.com/problems/closest-binary-search-tree-value/description/
 Easy
@@ -17,20 +19,7 @@ there are multiple answers, print the smallest.
 
 */
 public class Solution {
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode() {}
-        TreeNode(int val) {
-            this.val = val;
-        }
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
-        }
-    }
+
 
     public int closestValue(TreeNode root, double target) {
         return find(root, target, Integer.MAX_VALUE, Integer.MIN_VALUE);
