@@ -21,10 +21,10 @@ Note that the depth of a node is the number of edges in the path from the root n
 
  */
 public class Solution2 {
-// Doing a level by level traversal of the tree - we have all the nodes of a given level.
-// We can track the total sum of the level and we need to subtract the sum of sibling nodes (1 or 2 nodes).
-// The trick is to replace each node value with the sibling sum, so we can easily subtract during 
-// the processing of a level.
+    // Doing a level by level traversal of the tree - we have all the nodes of a given level.
+    // We can track the total sum of the level and we need to subtract the sum of sibling nodes (1 or 2 nodes).
+    // The trick is to replace each node value with the sibling sum, so we can easily subtract during 
+    // the processing of a level.
     public TreeNode replaceValueInTree(TreeNode root) {
         Deque<TreeNode> q = new LinkedList<>();
         q.offerFirst(root);
