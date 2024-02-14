@@ -1,12 +1,17 @@
 package leetcode.cycleLengthQueries;
 
 /*
- You are given an integer n. There is a complete binary tree with 2n - 1 nodes. The root of that tree is the node with the value 1, and every node with a value val in the range [1, 2n - 1 - 1] has two children where:
+https://leetcode.com/problems/cycle-length-queries-in-a-tree/
+Hard
+
+You are given an integer n. There is a complete binary tree with 2n - 1 nodes. The root of that tree is the node with 
+the value 1, and every node with a value val in the range [1, 2n - 1 - 1] has two children where:
 
     The left node has the value 2 * val, and
     The right node has the value 2 * val + 1.
 
-You are also given a 2D integer array queries of length m, where queries[i] = [ai, bi]. For each query, solve the following problem:
+You are also given a 2D integer array queries of length m, where queries[i] = [ai, bi]. For each query, solve the 
+following problem:
 
     Add an edge between the nodes with values ai and bi.
     Find the length of the cycle in the graph.

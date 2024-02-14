@@ -14,11 +14,6 @@ import leetcode.TreeNode;
 
  */
 public class Solution {
-    /**
-     * Definition for a binary tree node.
-     */
-
-
     /*
      * Given the root of a binary tree, flatten the tree into a "linked list":
      * 
