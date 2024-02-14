@@ -14,43 +14,46 @@ Given the array nums after the possible rotation and an integer target, return t
 
 You must write an algorithm with O(log n) runtime complexity.
  */
-public class Solution {
-    // search with modified search condition
+class Solution {
+    // search with 2 pass binary search algorithm
     //
-    // not working yet
+    // Note: a single pass with a modified search condition would not necessarily save processing
+    // time because the condition is more complicated, so the same amount of processing is done
+    // as compared to 2 pass binary search.
     int search(int[] nums, int target) {
         final int n = nums.length;
-        int i = find(0, n, (x) -> {
-            int mid = x[1];
-            int left = nums[x[0]];
-            //int right = nums[x[2] - 1];
-            // consider if target is in a range that does not contain the pivot point
-            if (left < nums[mid]) {
-                return target <= nums[mid];
-            } else {
-                // mid+1 < right
-                return mid + 1 < n ? target >= nums[mid + 1] : false;
-            }
-        });
-        return (i < n && nums[i] == target) ? i : -1;
+        // first find the pivot if there is one (else the pivot is at index 0)
+        //
+        // For the binary search method, we must verify that if condition is true for mid=i, then it is also
+        // true for mid=i+1. We should consider 2 cases.
+        // Case 1: left < mid, then condition is true when the pivot is some index <= mid.
+        // In this case, we know the range left:mid+1 also contains the pivot index. 
+        // Case 2: If left == mid, then the condition is false, so it may be true or false for mid+1.
+        // Since we only iterate when there is a pivot, then we can guarantee condition is true if end == mid+1 
+        // and end < n. Otherwise if end == n, then there is no pivot and the find method returns n.
+        // Note: it isn't technically necessary to first check 0 and n-1, since if there is no  
+        // pivot index, then binary search would yield n (because there is no leftmost index for which is 
+        // the condition is true).
+        int pivot = (nums[0] > nums[n - 1]) ? find(0, n, (left, mid) -> nums[left] > nums[mid]) % n : 0;
+        // then binary search based on the rotated array
+        int i = (pivot + find(0, n, (left, mid) -> target <= nums[(pivot + mid) % n])) % n;
+        return (nums[i] == target) ? i : -1;
     }
 
-    // find returns the leftmost index for which condition is true - returns end
-    // index if condition is false
+    // find returns the leftmost index for which condition is true - returns end index if condition is false
     // for all indices.
     // condition must be a function c that satisfies the property:
     // if c(i)=true then c(i+1)=true for all i start to end-2
     //
     // For example:
-    // - to find leftmost instance of target (i.e. insertBefore), use "target <=
-    // nums[i]" and
+    // - to find leftmost instance of target (i.e. insertBefore), use "target <= nums[i]" and
     // to find value after target (i.e. insertAfter), use "target < nums[i]"
-    int find(int start, int end, Function<int[], Boolean> condition) {
+    int find(int start, int end, BiFunction<Integer, Integer, Boolean> condition) {
         int l = start;
         int r = end;
         while (l < r) {
             int mid = l + (r - l) / 2;
-            if (condition.apply(new int[]{start, mid, end})) {
+            if (condition.apply(start, mid)) {
                 r = mid;
             } else {
                 l = mid + 1;
